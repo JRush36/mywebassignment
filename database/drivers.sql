@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2026 at 12:52 PM
+-- Generation Time: Feb 17, 2026 at 02:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.3.25
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mysql`
+-- Database: `formuladb`
 --
 
 -- --------------------------------------------------------
