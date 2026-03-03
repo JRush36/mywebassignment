@@ -16,7 +16,8 @@ $tracks = $conn->query("SELECT * FROM tracks");
 <p style="text-align:center;">
     <a href="index.php">Home</a> | 
     <a href="drivers.php">Drivers</a> | 
-    <a href="teams.php">Teams</a>
+    <a href="teams.php">Teams</a> |
+    <a href="tracks.php">Tracks</a>
 </p>
 
 <table border="1" style="margin:0 auto; width:95%; background:white;">

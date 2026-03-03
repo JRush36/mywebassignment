@@ -8,9 +8,10 @@
 <h1 style="color:red; text-align:center;">F1 2026 Database</h1>
 
 <p style="text-align:center; font-size:18px;">
+    <a href="index.php">Home</a> |
     <a href="drivers.php">Drivers</a> | 
     <a href="teams.php">Teams</a> | 
-    <a href="tracks.php">Tracks</a>
+    <a href="tracks.php">Tracks</a> |
 </p>
 
 </body>

@@ -15,7 +15,8 @@ $teams = $conn->query("SELECT * FROM teams");
 
 <p style="text-align:center;">
     <a href="index.php">Home</a> | 
-    <a href="drivers.php">Drivers</a> | 
+    <a href="drivers.php">Drivers</a> |
+    <a href="teams.php">Teams</a> | 
     <a href="tracks.php">Tracks</a>
 </p>
 
