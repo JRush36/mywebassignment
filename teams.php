@@ -69,14 +69,14 @@ $teams = $conn->query("SELECT * FROM teams");
 
     <?php while($row = $teams->fetch_assoc()): ?>
     <tr>
-        <td><?php echo $row['Name']; ?></td>
-        <td><?php echo $row['Country']; ?></td>
-        <td><?php echo $row['Headquarters']; ?></td>
-        <td><?php echo $row['Engine Manufacturer']; ?></td>
-        <td><?php echo $row['Driver 1']; ?></td>
-        <td><?php echo $row['Driver 2']; ?></td>
-        <td><?php echo $row['Wins']; ?></td>
-        <td><?php echo $row['Constructor Titles']; ?></td>
+        <td><?php echo "<a href='team_details.php?ID={$row['ID']}'>{$row['name']}</a>"; ?></td>
+        <td><?php echo $row['country']; ?></td>
+        <td><?php echo $row['headquarters']; ?></td>
+        <td><?php echo $row['power_unit']; ?></td>
+        <td><?php echo $row['driver_1']; ?></td>
+        <td><?php echo $row['driver_2']; ?></td>
+        <td><?php echo $row['wins']; ?></td>
+        <td><?php echo $row['constructor_titles']; ?></td>
     </tr>
     <?php endwhile; ?>
 </table>

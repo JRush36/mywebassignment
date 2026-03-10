@@ -69,15 +69,15 @@ $drivers = $conn->query("SELECT * FROM drivers");
 
     <?php while($row = $drivers->fetch_assoc()): ?>
     <tr>
-        <td><?php echo $row['Name']; ?></td>
-        <td><?php echo $row['Country']; ?></td>
-        <td><?php echo $row['Age']; ?></td>
-        <td><?php echo $row['Team']; ?></td>
-        <td><?php echo $row['Driver No.']; ?></td>
-        <td><?php echo number_format($row['Grand Prix Entered']); ?></td>
-        <td><?php echo number_format($row['Career Points']); ?></td>
-        <td><?php echo $row['Wins']; ?></td>
-        <td><?php echo $row['World Titles']; ?></td>
+        <td><?php echo "<a href='driver_details.php?ID={$row['ID']}'>{$row['name']}</a>"; ?></td>
+        <td><?php echo $row['country']; ?></td>
+        <td><?php echo $row['age']; ?></td>
+        <td><?php echo $row['team']; ?></td>
+        <td><?php echo $row['driver_no']; ?></td>
+        <td><?php echo number_format($row['grand_prix_entered']); ?></td>
+        <td><?php echo number_format($row['career_points']); ?></td>
+        <td><?php echo $row['wins']; ?></td>
+        <td><?php echo $row['world_titles']; ?></td>
     </tr>
     <?php endwhile; ?>
 </table>
