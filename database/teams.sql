@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2026 at 11:39 PM
+-- Generation Time: Mar 24, 2026 at 01:51 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.3.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,31 +32,34 @@ CREATE TABLE `teams` (
   `name` text NOT NULL,
   `country` text NOT NULL,
   `headquarters` text NOT NULL,
+  `chassis` varchar(10) NOT NULL,
   `power_unit` text NOT NULL,
   `team_principal` text NOT NULL,
   `driver_1` text NOT NULL,
   `driver_2` text NOT NULL,
   `wins` int(11) NOT NULL,
   `constructor_titles` int(11) NOT NULL,
-  `team_logo` varchar(100) DEFAULT NULL
+  `team_logo` varchar(100) DEFAULT NULL,
+  `car_image` text DEFAULT NULL,
+  `slug` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `teams`
 --
 
-INSERT INTO `teams` (`ID`, `name`, `country`, `headquarters`, `power_unit`, `team_principal`, `driver_1`, `driver_2`, `wins`, `constructor_titles`, `team_logo`) VALUES
-(1, 'Alpine', 'France', 'Enstone, UK', 'Mercedes', 'Flavio Briatore', 'Pierre Gasly', 'Franco Colapinto', 1, 0, NULL),
-(2, 'Aston Martin', 'United Kingdom', 'Silverstone, UK', 'Honda', 'Adrian Newey', 'Fernando Alonso', 'Lance Stroll', 0, 0, NULL),
-(3, 'Williams', 'United Kingdom', 'Grove, UK', 'Mercedes', 'James Vowles', 'Carlos Sainz', 'Alexander Albon', 114, 9, NULL),
-(4, 'Audi', 'Germany', 'Neuburg, Germany & Hinwil, Switzerland', 'Audi', 'Jonathan Wheatley', 'Niko Hülkenberg', 'Gabriel Bortoleto', 0, 0, NULL),
-(5, 'Cadillac', 'USA', 'Fishers, USA & Silverstone, UK', 'Ferrari', 'Graeme Lowdon', 'Valtteri Bottas', 'Sergio Pérez', 0, 0, NULL),
-(6, 'Ferrari', 'Italy', 'Maranello, Italy', 'Ferrari', 'Fred Vasseur', 'Charles Leclerc', 'Lewis Hamilton', 248, 16, NULL),
-(7, 'Haas', 'USA', 'Kannapolis, USA & Banbury, UK', 'Ferarri', 'Ayao Komatsu', 'Oliver Bearman', 'Esteban Ocon', 0, 0, NULL),
-(8, 'McLaren', 'United Kingdom', 'Woking, UK', 'Mercedes', 'Andrea Stella', 'Lando Norris', 'Oscar Piastri', 203, 10, NULL),
-(9, 'Mercedes', 'Germany', 'Brackley, UK', 'Mercedes', 'Toto Wolff', 'George Russell', 'Kimi Antonelli', 131, 8, NULL),
-(10, 'Racing Bulls', 'Italy', 'Faenza, Italy', 'Red Bull Ford', 'Alan Permane', 'Liam Lawson', 'Arvid Lindblad', 0, 0, NULL),
-(11, 'Red Bull', 'Austria', 'Milton Keynes, UK', 'Red Bull Ford', 'Laurent Mekies', 'Max Verstappen', 'Isack Hadjar', 130, 6, NULL);
+INSERT INTO `teams` (`ID`, `name`, `country`, `headquarters`, `chassis`, `power_unit`, `team_principal`, `driver_1`, `driver_2`, `wins`, `constructor_titles`, `team_logo`, `car_image`, `slug`) VALUES
+(1, 'BWT Alpine F1 Team', 'France', 'Enstone, UK', 'A526', 'Mercedes-AMG F1 M17', 'Flavio Briatore', 'Pierre Gasly', 'Franco Colapinto', 1, 0, 'alpine_img.png', 'alpine_car.png', 'bwt-alpine-f1-team'),
+(2, 'Aston Martin Aramco F1 Team', 'United Kingdom', 'Silverstone, UK', 'AMR26', 'Honda RA626H', 'Adrian Newey', 'Fernando Alonso', 'Lance Stroll', 0, 0, 'astonmartin_img.png', 'astonmartin_car.png', 'aston-martin-aramco-f1-team'),
+(3, 'Atlassian Williams F1 Team', 'United Kingdom', 'Grove, UK', 'FW48', 'Mercedes-AMG F1 M17', 'James Vowles', 'Carlos Sainz', 'Alexander Albon', 114, 9, 'williams_img.png', 'williams_car.png', 'atlassian-williams-f1-team'),
+(4, 'Audi Revolut F1 Team', 'Germany', 'Neuburg, Germany & Hinwil, Switzerland', 'R26', 'Audi AFR 26 Hybrid', 'Mattia Binotto', 'Niko Hülkenberg', 'Gabriel Bortoleto', 0, 0, 'audi_img.png', 'audi_car.png', 'audi-revolut-f1-team'),
+(5, 'Cadillac Formula 1 Team', 'USA', 'Fishers, USA & Silverstone, UK', 'MAC-26', 'Ferrari 067/6', 'Graeme Lowdon', 'Valtteri Bottas', 'Sergio Pérez', 0, 0, 'cadillac_img.png', 'cadillac_img.png', 'cadillac-formula-1-team'),
+(6, 'Scuderia Ferrari HP', 'Italy', 'Maranello, Italy', 'SF-26', 'Ferrari 067/6', 'Fred Vasseur', 'Charles Leclerc', 'Lewis Hamilton', 248, 16, 'ferrari_img.png', 'ferrari_car.png', 'scuderia-ferrari-hp'),
+(7, 'TGR Haas F1 Team', 'USA', 'Kannapolis, USA & Banbury, UK', 'VF-26', 'Ferrari 067/6', 'Ayao Komatsu', 'Oliver Bearman', 'Esteban Ocon', 0, 0, 'haas_img.png', 'haas_car.png', 'tgr-haas-f1-team'),
+(8, 'McLaren Mastercard F1 Team', 'United Kingdom', 'Woking, UK', 'MCL40', 'Mercedes-AMG F1 M17', 'Andrea Stella', 'Lando Norris', 'Oscar Piastri', 203, 10, 'mclaren_img.png', 'mclaren_car.png', 'mclaren-mastercard-f1-team'),
+(9, 'Mercedes-AMG Petronas F1 Team', 'Germany', 'Brackley, UK', 'F1 W17', 'Mercedes-AMG F1 M17', 'Toto Wolff', 'George Russell', 'Kimi Antonelli', 131, 8, 'mercedes_img.png', 'mercedes_car.png', 'mercedes-amg-petronas-f1-team'),
+(10, 'Visa Cash App Racing Bulls F1 Team', 'Italy', 'Faenza, Italy', 'VCARB 03', 'Red Bull Ford DM01', 'Alan Permane', 'Liam Lawson', 'Arvid Lindblad', 0, 0, 'vcarb_img.png', 'vcarb_car.png', 'visa-cash-app-racing-bulls-f1-team'),
+(11, 'Oracle Red Bull Racing', 'Austria', 'Milton Keynes, UK', 'RB22', 'Red Bull Ford DM01', 'Laurent Mekies', 'Max Verstappen', 'Isack Hadjar', 130, 6, 'redbull_img.png', 'redbull_car.png', 'oracle-red-bull-racing');
 
 --
 -- Indexes for dumped tables
