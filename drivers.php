@@ -70,10 +70,8 @@ $drivers = $conn->query("SELECT * FROM drivers");
     <?php while($row = $drivers->fetch_assoc()): ?>
     <tr>
         <td>
-            <a href="driver_details.php?driver=<?php echo urlencode($row['slug']); ?>">
-    <?php echo htmlspecialchars($row['name']); ?>
-</a>
-    </td>
+            <a href="driver_details.php?driver=<?php echo urlencode($row['slug']); ?>"> <?php echo htmlspecialchars($row['name']); ?> </a>
+        </td>
         <td><?php echo $row['country']; ?></td>
         <td><?php echo $row['age']; ?></td>
         <td><?php echo $row['team']; ?></td>

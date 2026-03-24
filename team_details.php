@@ -2,7 +2,7 @@
 include 'db_connect.php';
 
 // Read the 'team' parameter from the URL //
-$team_slug = isset($_GET['name']) ? trim($_GET['name']) : '';
+$team_slug = isset($_GET['team']) ? trim($_GET['team']) : '';
 
 // If no team slug was provided in the URL //
 if (empty($team_slug)) {
@@ -27,7 +27,7 @@ if (!$row) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- // Dynamically set the page title to the team's name //   -->
-    <title><?php echo htmlspecialchars($row['team_name']); ?> - F1 2026</title>
+    <title><?php echo htmlspecialchars($row['name']); ?> - F1 2026</title>
 
     <style>
         * {
@@ -38,8 +38,7 @@ if (!$row) {
         body {
             font-family: Arial, sans-serif;
             background: #f0f0f0;            
-            margin: 0;                      
-            padding: 30px;                  
+            margin: 0;                  
         }
 
         /* Nav Bar */
@@ -135,7 +134,7 @@ if (!$row) {
             padding: 0 20px;                    
         }
 
-        .driver-profile-layout {
+        .team-profile-layout {
             /* Use flexbox for side-by-side layout */
             display: flex;                      
             /* Space between photo and info columns */
@@ -192,3 +191,84 @@ if (!$row) {
     </style>
 </head>
 <body>
+
+<!-- Page title with driver name and number --> 
+<h1 style="color:red; text-align:center; margin-bottom:10px;">
+    <?php echo htmlspecialchars($row['name']); ?> 
+</h1>
+
+<!-- Nav menu -->
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="drivers.php">Drivers</a></li>
+        <li><a href="teams.php">Teams</a></li>
+        <li><a href="tracks.php">Tracks</a></li>
+    </ul>
+</nav>
+
+<!-- Banner graphics -->
+<div class="banner">
+    <!-- Team logo graphic positioned in the top-left corner of the banner -->
+    <img src="images/teams/<?php echo htmlspecialchars($row['team_logo']); ?>"
+         class="team-logo"
+         alt="Team logo">
+
+    <!-- Team name text positioned to the right of the logo -->
+    <div class="team-name">
+        <?php echo htmlspecialchars($row['name']); ?>
+    </div>
+
+    <!-- Car image positioned at the bottom of the banner-->
+    <div class="car-container">
+        <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
+             class="car"
+             alt="F1 Car">
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="content-wrapper">
+    <div class="team-profile-layout">
+
+        <!-- Right column: two stacked info cards -->
+        <div class="info-column">
+
+
+            <div class="info-card">
+                <h2>Achievements</h2>
+                <table>
+                    <tr><th>Wins</th><td><?php echo htmlspecialchars($row['wins']); ?></td></tr>
+                    <tr><th>Constructor Titles</th><td><?php echo htmlspecialchars($row['constructor_titles']); ?></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h2>Personnel</h2> 
+                <table>
+                    <tr><th>Team Principal</th><td><?php echo htmlspecialchars($row['team_principal']); ?></td></tr>
+                    <tr><th>Driver 1</th><td><?php echo htmlspecialchars($row['driver_1']); ?></td></tr>
+                    <tr><th>Driver 2</th><td><?php echo htmlspecialchars($row['driver_2']); ?></td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h2>Team Information</h2>
+                <table>
+                    <tr><th>Name</th><td><?php echo htmlspecialchars($row['name']); ?></td></tr>
+                    <tr><th>Country</th><td><?php echo htmlspecialchars($row['country']); ?></td></tr>
+                    <tr><th>Headquarters</th><td><?php echo htmlspecialchars($row['headquarters']); ?></td></tr>
+                    <tr><th>Chassis</th><td><?php echo htmlspecialchars($row['chassis']); ?></td></tr>
+                    <tr><th>Power Unit</th><td><?php echo htmlspecialchars($row['power_unit']); ?></td></tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<?php
+$conn->close();
+?>

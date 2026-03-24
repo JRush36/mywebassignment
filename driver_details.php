@@ -39,13 +39,12 @@ if (!$row) {
             font-family: Arial, sans-serif;
             background: #f0f0f0;            
             margin: 0;                      
-            padding: 30px;                  
         }
 
         /* Nav Bar */
         nav {
             padding: 10px 0;                    
-            background-color: rgb(255, 88, 88); 
+            background-color: rgb(0, 0, 0); 
             text-align: center; 
             /* Space between nav and banner section below */                
             margin-bottom: 30px;                
@@ -71,8 +70,8 @@ if (!$row) {
         }
 
         nav a:hover {
-            /* Darker red when mouse hovers over each link */
-            background-color: rgb(188, 56, 56); 
+            /* red when mouse hovers over each link */
+            background-color: rgb(155, 0, 0); 
         }
 
         /* Banner */
@@ -104,7 +103,7 @@ if (!$row) {
             /* Position relative to banner */
             position: absolute;                 
             top: 30px;                          
-            left: 6.5%;                           
+            left: 10.5%;                           
             color: white;
             font-family: 'verdana', sans-serif;
             font-size: 2.5em;
@@ -155,7 +154,7 @@ if (!$row) {
 
         .driver-photo {
             width: 100%;                        
-            border: 8px solid #c00;            
+            border: 8px solid rgb(255, 0, 0);            
             /* Rounded corners */ 
             border-radius: 15px;                
             box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
@@ -207,7 +206,7 @@ if (!$row) {
 <body>
 
 <!-- Page title with driver name and number --> 
-<h1 style="color:red; text-align:center; margin-bottom:10px;">
+<h1 style="color:black; text-align:center; margin-bottom:10px;">
     <?php echo htmlspecialchars($row['name']); ?> 
     <span style="font-size:0.6em;">#<?php echo $row['driver_no']; ?></span> 
 </h1>
@@ -240,7 +239,6 @@ if (!$row) {
              class="car"
              alt="F1 Car">
     </div>
-
 </div>
 
 <!-- Main content -->
@@ -277,7 +275,6 @@ if (!$row) {
                     <tr><th>World Titles</th><td><?php echo $row['world_titles']; ?></td></tr>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
