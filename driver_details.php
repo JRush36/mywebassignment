@@ -206,7 +206,7 @@ if (!$row) {
 </head>
 <body>
 
-<!-- Page title with driver name and number -->
+<!-- Page title with driver name and number --> 
 <h1 style="color:red; text-align:center; margin-bottom:10px;">
     <?php echo htmlspecialchars($row['name']); ?> 
     <span style="font-size:0.6em;">#<?php echo $row['driver_no']; ?></span> 
@@ -225,7 +225,7 @@ if (!$row) {
 <!-- Banner graphics -->
 <div class="banner">
     <!-- Driver number graphic positioned in the top-left corner of the banner -->
-    <img src="images/numbers/<?php echo htmlspecialchars($row['driver_number'] ?? 'placeholder.png'); ?>"
+    <img src="images/numbers/<?php echo htmlspecialchars($row['driver_number']); ?>"
          class="driver-number"
          alt="Driver number">
 
@@ -236,7 +236,7 @@ if (!$row) {
 
     <!-- Car image positioned at the bottom of the banner-->
     <div class="car-container">
-        <img src="images/cars/<?php echo htmlspecialchars($row['car_image'] ?? 'placeholder_car.png'); ?>"
+        <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
              class="car"
              alt="F1 Car">
     </div>
@@ -249,7 +249,7 @@ if (!$row) {
 
         <!-- Left column: large driver photo -->
         <div class="driver-photo-side">
-            <img src="images/drivers/<?php echo htmlspecialchars($row['driver_photo'] ?? 'placeholder.png'); ?>"
+            <img src="images/drivers/<?php echo htmlspecialchars($row['driver_photo']); ?>"
                  class="driver-photo"
                  alt="<?php echo htmlspecialchars($row['name']); ?>">
         </div>
