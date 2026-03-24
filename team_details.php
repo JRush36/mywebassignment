@@ -115,7 +115,6 @@ if (!$row) {
             font-family: 'verdana', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            font-style: italic;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             z-index: 2;                         
         }
