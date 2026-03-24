@@ -80,7 +80,6 @@ $teams = $conn->query("SELECT * FROM teams");
     </tr>
     <?php endwhile; ?>
 </table>
-
 </body>
 </html>
 <?php $conn->close(); ?>
