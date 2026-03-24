@@ -38,16 +38,14 @@ if (!$row) {
         body {
             font-family: Arial, sans-serif;
             background: #f0f0f0;            
-            margin: 0;                  
+            margin: 0;                      
         }
 
         /* Nav Bar */
         nav {
             padding: 10px 0;                    
-            background-color: rgb(255, 88, 88); 
-            text-align: center; 
-            /* Space between nav and banner section below */                
-            margin-bottom: 30px;                
+            background-color: rgb(0, 0, 0); 
+            text-align: center;
         }
 
         nav ul {
@@ -70,8 +68,8 @@ if (!$row) {
         }
 
         nav a:hover {
-            /* Darker red when mouse hovers over each link */
-            background-color: rgb(188, 56, 56); 
+            /* red when mouse hovers over each link */
+            background-color: rgb(155, 0, 0); 
         }
 
         /* Banner */
@@ -103,7 +101,7 @@ if (!$row) {
             /* Position relative to banner */
             position: absolute;                 
             top: 30px;                          
-            left: 6.5%;                           
+            left: 4.5%;                           
             color: white;
             font-family: 'verdana', sans-serif;
             font-size: 2.5em;
@@ -192,8 +190,8 @@ if (!$row) {
 </head>
 <body>
 
-<!-- Page title with driver name and number --> 
-<h1 style="color:red; text-align:center; margin-bottom:10px;">
+<!-- Page title with team name --> 
+<h1 style="color:black; text-align:center; margin-bottom:10px;">
     <?php echo htmlspecialchars($row['name']); ?> 
 </h1>
 
@@ -234,7 +232,6 @@ if (!$row) {
         <!-- Right column: two stacked info cards -->
         <div class="info-column">
 
-
             <div class="info-card">
                 <h2>Achievements</h2>
                 <table>
@@ -262,7 +259,6 @@ if (!$row) {
                     <tr><th>Power Unit</th><td><?php echo htmlspecialchars($row['power_unit']); ?></td></tr>
                 </table>
             </div>
-
         </div>
     </div>
 </div>

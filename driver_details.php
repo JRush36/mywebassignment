@@ -45,9 +45,7 @@ if (!$row) {
         nav {
             padding: 10px 0;                    
             background-color: rgb(0, 0, 0); 
-            text-align: center; 
-            /* Space between nav and banner section below */                
-            margin-bottom: 30px;                
+            text-align: center;      
         }
 
         nav ul {
@@ -103,7 +101,7 @@ if (!$row) {
             /* Position relative to banner */
             position: absolute;                 
             top: 30px;                          
-            left: 10.5%;                           
+            left: 6.5%;                           
             color: white;
             font-family: 'verdana', sans-serif;
             font-size: 2.5em;

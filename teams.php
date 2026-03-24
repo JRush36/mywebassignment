@@ -43,7 +43,7 @@ $teams = $conn->query("SELECT * FROM teams");
 </style>
 <body style="font-family:Arial; background:#f0f0f0; padding:30px;">
 
-<h1 style="color:red; text-align:center;">Drivers 2026</h1>
+<h1 style="color:red; text-align:center;">Teams 2026</h1>
 <nav>
 <p>
     <ul>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2026 at 01:51 PM
+-- Generation Time: Mar 24, 2026 at 02:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.3.25
 
@@ -53,7 +53,7 @@ INSERT INTO `teams` (`ID`, `name`, `country`, `headquarters`, `chassis`, `power_
 (2, 'Aston Martin Aramco F1 Team', 'United Kingdom', 'Silverstone, UK', 'AMR26', 'Honda RA626H', 'Adrian Newey', 'Fernando Alonso', 'Lance Stroll', 0, 0, 'astonmartin_img.png', 'astonmartin_car.png', 'aston-martin-aramco-f1-team'),
 (3, 'Atlassian Williams F1 Team', 'United Kingdom', 'Grove, UK', 'FW48', 'Mercedes-AMG F1 M17', 'James Vowles', 'Carlos Sainz', 'Alexander Albon', 114, 9, 'williams_img.png', 'williams_car.png', 'atlassian-williams-f1-team'),
 (4, 'Audi Revolut F1 Team', 'Germany', 'Neuburg, Germany & Hinwil, Switzerland', 'R26', 'Audi AFR 26 Hybrid', 'Mattia Binotto', 'Niko Hülkenberg', 'Gabriel Bortoleto', 0, 0, 'audi_img.png', 'audi_car.png', 'audi-revolut-f1-team'),
-(5, 'Cadillac Formula 1 Team', 'USA', 'Fishers, USA & Silverstone, UK', 'MAC-26', 'Ferrari 067/6', 'Graeme Lowdon', 'Valtteri Bottas', 'Sergio Pérez', 0, 0, 'cadillac_img.png', 'cadillac_img.png', 'cadillac-formula-1-team'),
+(5, 'Cadillac Formula 1 Team', 'USA', 'Fishers, USA & Silverstone, UK', 'MAC-26', 'Ferrari 067/6', 'Graeme Lowdon', 'Valtteri Bottas', 'Sergio Pérez', 0, 0, 'cadillac_img.png', 'cadillac_car.png', 'cadillac-formula-1-team'),
 (6, 'Scuderia Ferrari HP', 'Italy', 'Maranello, Italy', 'SF-26', 'Ferrari 067/6', 'Fred Vasseur', 'Charles Leclerc', 'Lewis Hamilton', 248, 16, 'ferrari_img.png', 'ferrari_car.png', 'scuderia-ferrari-hp'),
 (7, 'TGR Haas F1 Team', 'USA', 'Kannapolis, USA & Banbury, UK', 'VF-26', 'Ferrari 067/6', 'Ayao Komatsu', 'Oliver Bearman', 'Esteban Ocon', 0, 0, 'haas_img.png', 'haas_car.png', 'tgr-haas-f1-team'),
 (8, 'McLaren Mastercard F1 Team', 'United Kingdom', 'Woking, UK', 'MCL40', 'Mercedes-AMG F1 M17', 'Andrea Stella', 'Lando Norris', 'Oscar Piastri', 203, 10, 'mclaren_img.png', 'mclaren_car.png', 'mclaren-mastercard-f1-team'),
