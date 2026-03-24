@@ -35,6 +35,15 @@ if (!$row) {
             box-sizing: border-box;         
         }
 
+        h1 {
+            font-family: Arial, sans-serif;
+            background: #000000;            
+            margin: 0;
+            color: white; 
+            text-align:center;
+            padding: 20px 0;                      
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f0f0f0;            
@@ -204,10 +213,7 @@ if (!$row) {
 <body>
 
 <!-- Page title with driver name and number --> 
-<h1 style="color:black; text-align:center; margin-bottom:10px;">
-    <?php echo htmlspecialchars($row['name']); ?> 
-    <span style="font-size:0.6em;">#<?php echo $row['driver_no']; ?></span> 
-</h1>
+<h1> <?php echo htmlspecialchars($row['name']); ?> <span style="font-size:0.6em;">#<?php echo $row['driver_no']; ?></span></h1>
 
 <!-- Nav menu -->
 <nav>

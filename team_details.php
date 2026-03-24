@@ -35,9 +35,18 @@ if (!$row) {
             box-sizing: border-box;         
         }
 
+        h1 {
+            font-family: Arial, sans-serif;
+            background: #000000;            
+            margin: 0;
+            color: white; 
+            text-align:center;
+            padding: 20px 0;                      
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #f0f0f0;            
+            background: #ffffff;            
             margin: 0;                      
         }
 
@@ -129,7 +138,8 @@ if (!$row) {
             max-width: 1100px;             
             /* Left margin creates space from the edge of the screen, no right margin to keep content left-aligned */     
             margin: 0 0 40px 40px;              
-            padding: 0 20px;                    
+            padding: 0 20px;     
+            background: #f9f9f9;               
         }
 
         .team-profile-layout {
@@ -191,9 +201,8 @@ if (!$row) {
 <body>
 
 <!-- Page title with team name --> 
-<h1 style="color:black; text-align:center; margin-bottom:10px;">
-    <?php echo htmlspecialchars($row['name']); ?> 
-</h1>
+<h1 style="color:white; text-align:center; background-color: rgb(0, 0, 0); padding: 20px 0;">
+    <?php echo htmlspecialchars($row['name']); ?> </h1>
 
 <!-- Nav menu -->
 <nav>
