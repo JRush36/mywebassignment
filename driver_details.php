@@ -1,289 +1,288 @@
 <?php
 include 'db_connect.php';
-
-// Read the 'driver' parameter from the URL //
+/*/ Read the 'driver' parameter from the URL (e.g. driver_details.php?driver=lewis-hamilton) /*/
 $driver_slug = isset($_GET['driver']) ? trim($_GET['driver']) : '';
-
-// If no driver slug was provided in the URL //
+/*/ If no driver slug was provided in the URL, show an error message and stop execution /*/
 if (empty($driver_slug)) {
     die("<h2 style='color:red; text-align:center;'>Driver not found!</h2>");
 }
-
+/*/ Escape the slug to prevent SQL injection attacks /*/
 $driver_slug = $conn->real_escape_string($driver_slug);
+/*/ Query the database to find a driver with the matching slug /*/
 $result = $conn->query("SELECT * FROM drivers WHERE slug = '$driver_slug'");
-
+/*/ Fetch the result as an associative array /*/
 $row = $result->fetch_assoc();
-
-// If no matching driver was found //
+/*/ If no matching driver was found in the database, show an error message /*/
 if (!$row) {
     die("<h2 style='color:red; text-align:center;'>Driver not found!</h2>");
 }
 ?>
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- // Dynamically set the page title to the driver's name //   -->
-    <title><?php echo htmlspecialchars($row['name']); ?> - F1 2026</title>
-
+    <title><?php echo htmlspecialchars($row['name']); ?> - Rush F1</title>
     <style>
+        /*/ Reset default browser margins and padding /*/
         * {
-            /* Makes width/padding easier to manage across all elements */
-            box-sizing: border-box;         
-        }
-
-        h1 {
-            font-family: Arial, sans-serif;
-            background: #000000;            
             margin: 0;
-            color: white; 
-            text-align:center;
-            padding: 20px 0;                      
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        /*/ Global body styling /*/
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f0f0;            
-            margin: 0;                      
-        }
-
-        /* Nav Bar */
-        nav {
-            padding: 10px 0;                    
-            background-color: rgb(0, 0, 0); 
-            text-align: center;      
-        }
-
-        nav ul {
-            padding: 0;                         
-            margin: 0;                          
-            list-style: none;     
-            /* Make list items horizontal */              
-            display: flex;                      
-            justify-content: center;           
-            /* Allow items to wrap on very small screens */
-            flex-wrap: wrap;                    
-        }
-
-        nav a {
-            color: white;            
-            /* Remove underline */           
-            text-decoration: none;              
-            font-weight: bold;                  
-            padding: 8px 16px;                  
-        }
-
-        nav a:hover {
-            /* red when mouse hovers over each link */
-            background-color: rgb(155, 0, 0); 
-        }
-
-        /* Banner */
-        .banner {
-            /* Allows absolute positioning of child elements */
-            position: relative;                 
-            height: 380px;                      
-            /* Black to red gradient background for the banner */
-            background: linear-gradient(#111, #ff0000); 
-            /* Space before main content starts */
-            margin-bottom: 40px;    
-            /* Hides anything that goes outside the banner area */            
-            overflow: hidden;                   
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .driver-number {
-            /* Position relative to banner */
-            position: absolute;                 
-            top: 30px;                          
-            left: 1.5%;                           
-            max-width: 130px;
-            max-height: 110px;         
-            /* Ensure it appears above the car image */              
-            z-index: 2;                         
-        }
-
-        .driver-name {
-            /* Position relative to banner */
-            position: absolute;                 
-            top: 30px;                          
-            left: 6.5%;                           
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0a0a0a;
             color: white;
-            font-family: 'verdana', sans-serif;
-            font-size: 2.5em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            z-index: 2;                         
+            margin: 0;
         }
-
-        .car-container {
-            position: absolute;                 
-            bottom: 40px;                       
-            left: 0;                            
-            width: 100%;                        
+        header {
+            background: linear-gradient(180deg, #000000, #c00);
+            padding: 35px 20px 25px; 
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
         }
-
-        .car {
-            width: 90%;                         
-            max-width: 720px;                   
-            /* Shift car slightly to the right for better composition */
-            transform: translateX(6.5%);          
+        header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(255,0,0,0.8);
         }
-
-        .content-wrapper {
-            max-width: 1100px;             
-            /* Left margin creates space from the edge of the screen, no right margin to keep content left-aligned */     
-            margin: 0 0 40px 40px;              
-            padding: 0 20px;                    
+        nav {
+            background-color: #000000;
+            padding: 12px 0;
+            text-align: center;
         }
-
-        .driver-profile-layout {
-            /* Use flexbox for side-by-side layout */
-            display: flex;                      
-            /* Space between photo and info columns */
-            gap: 50px;                          
-            /* Stack vertically on small screens */
-            flex-wrap: wrap;                    
-            /* Align items to the left */
-            justify-content: flex-start;        
-            /* Align tops of columns */
-            align-items: flex-start;            
-        }
-
-        .driver-photo-side {
-            /* Fixed width for the photo column */
-            flex: 0 0 320px;                    
-        }
-
-        .driver-photo {
-            width: 100%;                        
-            border: 8px solid rgb(255, 0, 0);            
-            /* Rounded corners */ 
-            border-radius: 15px;                
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
-        }
-
-        .info-column {
-            /* Take all remaining horizontal space */
-            flex: 1;                            
-            min-width: 380px;                   
+        nav ul {
+            list-style: none;
             display: flex;
-            /* Stack cards vertically */
-            flex-direction: column;             
-            gap: 25px;                          
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 18px;
+        }
+        nav a:hover {
+            background-color: #c00;
+        }
+        /*/ Banner section /*/
+        .banner {
+            position: relative;
+            height: 280px;
+            background: linear-gradient(#111, #ff0000);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .driver-number-container {
+            position: absolute;
+            top: 28px;
+            left: 25px;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .driver-number {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .driver-name {
+            position: absolute;
+            top: 32px;
+            left: 155px;
+            color: white;
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            font-weight: bold;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
+            z-index: 2;
+        }
+        .car-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+        }
+        .car {
+            width: 82%;
+            max-width: 560px;
+            height: auto;
+            transform: translateX(10%);
+        }
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        .main-detail-box {
+            background: #1a1a1a;
+            border: 5px solid #c00;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+        /*/ Flexbox layout for photo and information /*/
+        .driver-profile-layout {
+            display: flex;
+            gap: 45px;
+            flex-wrap: wrap;
+        }
+        .driver-photo-side {
+            flex: 0 0 290px;
+        }
+        .driver-photo {
+            width: 100%;
+            max-width: 290px;
+            height: auto;
+            border: 2px solid #c00;
+            border-radius: 15px;
+        }
+        .info-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
         .info-card {
-            background: white;                  
-            padding: 25px;                      
-            /* Rounded corners */
-            border-radius: 12px;                
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #222;
+            padding: 28px;
+            border-radius: 12px;
+            border: 2px solid #c00;
         }
-
         .info-card h2 {
-            /* Space below card title */
-            margin: 0 0 18px 0;                 
+            color: #ff0000;
+            margin-bottom: 20px;
         }
-
+        .info-bio {
+            background: #222;
+            padding: 28px;
+            border-radius: 12px;
+            border: 2px solid #c00;
+            font-size: 0.80rem;
+        }
+        .info-bio h2 {
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
         table {
             width: 100%;
-            /* Remove gaps between cells */                        
-            border-collapse: collapse;          
+            border-collapse: collapse;
         }
-
         th, td {
-            padding: 12px;                      
-            text-align: left;                   
-            /* Light gray horizontal lines */
-            border-bottom: 1px solid #ddd;      
+            padding: 13px 18px;
+            text-align: left;
+            border-bottom: 1px solid #444;
         }
-
         th {
-            /* Slightly darker background for header cells */
-            background: #eee;                   
+            background: #c00;
+            color: white;
+            width: 40%;
         }
-
+        /*/ Responsive adjustments /*/
+        @media (max-width: 768px) {
+            .banner {
+                height: 240px;
+            }
+            .driver-number-container {
+                width: 85px;
+                height: 85px;
+                left: 18px;
+            }
+            .driver-name {
+                left: 115px;
+                font-size: clamp(1.65rem, 6.5vw, 2.4rem);
+            }
+            .car {
+                max-width: 440px;
+            }
+            .driver-photo {
+                max-width: 265px;
+            }
+            .driver-profile-layout {
+                flex-direction: column;
+                gap: 35px;
+            }
+            .main-detail-box {
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 <body>
-
-<!-- Page title with driver name and number --> 
-<h1> <?php echo htmlspecialchars($row['name']); ?> <span style="font-size:0.6em;">#<?php echo $row['driver_no']; ?></span></h1>
-
-<!-- Nav menu -->
-<nav>
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="drivers.php">Drivers</a></li>
-        <li><a href="teams.php">Teams</a></li>
-        <li><a href="tracks.php">Tracks</a></li>
-    </ul>
-</nav>
-
-<!-- Banner graphics -->
-<div class="banner">
-    <!-- Driver number graphic positioned in the top-left corner of the banner -->
-    <img src="images/numbers/<?php echo htmlspecialchars($row['driver_number']); ?>"
-         class="driver-number"
-         alt="Driver number">
-
-    <!-- Driver name text positioned to the right of the number -->
-    <div class="driver-name">
-        <?php echo htmlspecialchars($row['name']); ?>
-    </div>
-
-    <!-- Car image positioned at the bottom of the banner-->
-    <div class="car-container">
-        <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
-             class="car"
-             alt="F1 Car">
-    </div>
-</div>
-
-<!-- Main content -->
-<div class="content-wrapper">
-    <div class="driver-profile-layout">
-
-        <!-- Left column: large driver photo -->
-        <div class="driver-photo-side">
-            <img src="images/drivers/<?php echo htmlspecialchars($row['driver_photo']); ?>"
-                 class="driver-photo"
-                 alt="<?php echo htmlspecialchars($row['name']); ?>">
+    <header>
+        <h1>RUSH F1</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="drivers.php">Drivers</a></li>
+            <li><a href="teams.php">Teams</a></li>
+            <li><a href="tracks.php">Tracks</a></li>
+        </ul>
+    </nav>
+    <div class="banner">
+        <div class="driver-number-container">
+            <img src="images/numbers/<?php echo htmlspecialchars($row['driver_number']); ?>"
+                 class="driver-number"
+                 alt="Driver number">
         </div>
 
-        <!-- Right column: two stacked info cards -->
-        <div class="info-column">
+        <div class="driver-name">
+            <?php echo htmlspecialchars($row['name']); ?>
+        </div>
 
-            <!-- Personal information card -->
-            <div class="info-card">
-                <h2>Personal Information</h2>
-                <table>
-                    <tr><th>Country</th><td><?php echo htmlspecialchars($row['country']); ?></td></tr>
-                    <tr><th>Age</th><td><?php echo $row['age']; ?></td></tr>
-                    <tr><th>Team</th><td><?php echo htmlspecialchars($row['team']); ?></td></tr>
-                </table>
-            </div>
+        <div class="car-container">
+            <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
+                 class="car" alt="F1 Car">
+        </div>
+    </div>
 
-            <!-- Career statistics card -->
-            <div class="info-card">
-                <h2>Career Statistics</h2> 
-                <table>
-                    <tr><th>Grand Prix Entered</th><td><?php echo number_format($row['grand_prix_entered']); ?></td></tr>
-                    <tr><th>Career Points</th><td><?php echo number_format($row['career_points']); ?></td></tr>
-                    <tr><th>Wins</th><td><?php echo $row['wins']; ?></td></tr>
-                    <tr><th>World Titles</th><td><?php echo $row['world_titles']; ?></td></tr>
-                </table>
+    <div class="content-wrapper">
+        <div class="main-detail-box">
+            <div class="driver-profile-layout">
+                <div class="driver-photo-side">
+                    <img src="images/drivers/<?php echo htmlspecialchars($row['driver_photo']); ?>"
+                         class="driver-photo"
+                         alt="<?php echo htmlspecialchars($row['name']); ?>">
+                </div>
+
+                <div class="info-column">
+                    <div class="info-card">
+                        <h2>Personal Information</h2>
+                        <table>
+                            <tr><th>Country</th><td><?php echo htmlspecialchars($row['country']); ?></td></tr>
+                            <tr><th>Age</th><td><?php echo $row['age']; ?></td></tr>
+                            <tr><th>Team</th><td><?php echo htmlspecialchars($row['team']); ?></td></tr>
+                        </table>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Career Statistics</h2>
+                        <table>
+                            <tr><th>Grand Prix Entered</th><td><?php echo number_format($row['grand_prix_entered']); ?></td></tr>
+                            <tr><th>Career Points</th><td><?php echo number_format($row['career_points']); ?></td></tr>
+                            <tr><th>Wins</th><td><?php echo $row['wins']; ?></td></tr>
+                            <tr><th>World Titles</th><td><?php echo $row['world_titles']; ?></td></tr>
+                        </table>
+                    </div>
+                 
+                    <div class="info-bio">
+                        <h2>Driver Biography</h2>
+                        <p><?php echo htmlspecialchars($row['biography']); ?></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>

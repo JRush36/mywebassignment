@@ -1,278 +1,215 @@
 <?php
 include 'db_connect.php';
-
-// Read the 'team' parameter from the URL //
+/*/ Read the 'team' parameter from the URL /*/
 $team_slug = isset($_GET['team']) ? trim($_GET['team']) : '';
-
-// If no team slug was provided in the URL //
 if (empty($team_slug)) {
     die("<h2 style='color:red; text-align:center;'>Team not found!</h2>");
 }
-
 $team_slug = $conn->real_escape_string($team_slug);
+/*/ Query the database to find the team with the matching slug /*/
 $result = $conn->query("SELECT * FROM teams WHERE slug = '$team_slug'");
-
 $row = $result->fetch_assoc();
-
-// If no matching team was found //
 if (!$row) {
     die("<h2 style='color:red; text-align:center;'>Team not found!</h2>");
 }
 ?>
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- // Dynamically set the page title to the team's name //   -->
-    <title><?php echo htmlspecialchars($row['name']); ?> - F1 2026</title>
-
+    <title><?php echo htmlspecialchars($row['name']); ?> - Rush F1</title>
     <style>
         * {
-            /* Makes width/padding easier to manage across all elements */
-            box-sizing: border-box;         
-        }
-
-        h1 {
-            font-family: Arial, sans-serif;
-            background: #000000;            
             margin: 0;
-            color: white; 
-            text-align:center;
-            padding: 20px 0;                      
+            padding: 0;
+            box-sizing: border-box;
         }
-
         body {
-            font-family: Arial, sans-serif;
-            background: #ffffff;            
-            margin: 0;                      
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            margin: 0;
         }
-
-        /* Nav Bar */
-        nav {
-            padding: 10px 0;                    
-            background-color: rgb(0, 0, 0); 
+        header {
+            background: linear-gradient(180deg, #000000, #c00);
+            padding: 40px 20px;
             text-align: center;
         }
-
+        header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(255,0,0,0.8);
+        }
+        nav {
+            background-color: #000000;
+            padding: 12px 0;
+            text-align: center;
+        }
         nav ul {
-            padding: 0;                         
-            margin: 0;                          
-            list-style: none;     
-            /* Make list items horizontal */              
-            display: flex;                      
-            justify-content: center;           
-            /* Allow items to wrap on very small screens */
-            flex-wrap: wrap;                    
-        }
-
-        nav a {
-            color: white;            
-            /* Remove underline */           
-            text-decoration: none;              
-            font-weight: bold;                  
-            padding: 8px 16px;                  
-        }
-
-        nav a:hover {
-            /* red when mouse hovers over each link */
-            background-color: rgb(155, 0, 0); 
-        }
-
-        /* Banner */
-        .banner {
-            /* Allows absolute positioning of child elements */
-            position: relative;                 
-            height: 380px;                      
-            /* Black to red gradient background for the banner */
-            background: linear-gradient(#111, #ff0000); 
-            /* Space before main content starts */
-            margin-bottom: 40px;    
-            /* Hides anything that goes outside the banner area */            
-            overflow: hidden;                   
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .team-logo {
-            /* Position relative to banner */
-            position: absolute;                 
-            top: 30px;                          
-            left: 1.5%;                           
-            max-width: 130px;
-            max-height: 110px;         
-            /* Ensure it appears above the car image */              
-            z-index: 2;                         
-        }
-
-        .team-name {
-            /* Position relative to banner */
-            position: absolute;                 
-            top: 30px;                          
-            left: 4.5%;                           
-            color: white;
-            font-family: 'verdana', sans-serif;
-            font-size: 2.5em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            z-index: 2;                         
-        }
-
-        .car-container {
-            position: absolute;                 
-            bottom: 40px;                       
-            left: 0;                            
-            width: 100%;                        
-        }
-
-        .car {
-            width: 90%;                         
-            max-width: 720px;                   
-            /* Shift car slightly to the right for better composition */
-            transform: translateX(6.5%);          
-        }
-
-        .content-wrapper {
-            max-width: 1100px;             
-            /* Left margin creates space from the edge of the screen, no right margin to keep content left-aligned */     
-            margin: 0 0 40px 40px;              
-            padding: 0 20px;     
-            background: #f9f9f9;               
-        }
-
-        .team-profile-layout {
-            /* Use flexbox for side-by-side layout */
-            display: flex;                      
-            /* Space between photo and info columns */
-            gap: 50px;                          
-            /* Stack vertically on small screens */
-            flex-wrap: wrap;                    
-            /* Align items to the left */
-            justify-content: flex-start;        
-            /* Align tops of columns */
-            align-items: flex-start;            
-        }
-
-        .info-column {
-            /* Take all remaining horizontal space */
-            flex: 1;                            
-            min-width: 380px;                   
+            list-style: none;
             display: flex;
-            /* Stack cards vertically */
-            flex-direction: column;             
-            gap: 25px;                          
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 18px;
+        }
+        nav a:hover {
+            background-color: #c00;
+        }
+        .banner {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(#111, #ff0000);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .team-name {
+            position: absolute;
+            top: 35px;
+            left: 30px;
+            color: white;
+            font-size: clamp(1.95rem, 5.5vw, 2.9rem);
+            font-weight: bold;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
+            z-index: 2;
+        }
+        .car-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+        }
+        .car {
+            width: 82%;
+            max-width: 560px;
+            height: auto;
+            transform: translateX(10%);
+        }
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        .main-detail-box {
+            background: #1a1a1a;
+            border: 5px solid #c00;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+        .team-profile-layout {
+            display: flex;
+            gap: 45px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }=
+        .info-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
         .info-card {
-            background: white;                  
-            padding: 25px;                      
-            /* Rounded corners */
-            border-radius: 12px;                
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #222;
+            padding: 28px;
+            border-radius: 12px;
+            border: 2px solid #c00;
         }
-
         .info-card h2 {
-            /* Space below card title */
-            margin: 0 0 18px 0;                 
+            color: #ff0000;
+            margin-bottom: 20px;
         }
-
         table {
             width: 100%;
-            /* Remove gaps between cells */                        
-            border-collapse: collapse;          
+            border-collapse: collapse;
         }
-
         th, td {
-            padding: 12px;                      
-            text-align: left;                   
-            /* Light gray horizontal lines */
-            border-bottom: 1px solid #ddd;      
+            padding: 13px 18px;
+            text-align: left;
+            border-bottom: 1px solid #444;
         }
-
         th {
-            /* Slightly darker background for header cells */
-            background: #eee;                   
+            background: #c00;
+            color: white;
+            width: 40%;
         }
-
+        /*/ Responsive adjustments for mobile and smaller screens /*/
+        @media (max-width: 768px) {
+            .banner { height: 255px; }
+            .team-name { left: 25px; font-size: clamp(1.65rem, 6.8vw, 2.45rem); }
+            .car { max-width: 440px; }
+            .team-profile-layout { flex-direction: column; gap: 35px; }
+            .main-detail-box { padding: 25px; }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>RUSH F1</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="drivers.php">Drivers</a></li>
+            <li><a href="teams.php">Teams</a></li>
+            <li><a href="tracks.php">Tracks</a></li>
+        </ul>
+    </nav>
 
-<!-- Page title with team name --> 
-<h1 style="color:white; text-align:center; background-color: rgb(0, 0, 0); padding: 20px 0;">
-    <?php echo htmlspecialchars($row['name']); ?> </h1>
-
-<!-- Nav menu -->
-<nav>
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="drivers.php">Drivers</a></li>
-        <li><a href="teams.php">Teams</a></li>
-        <li><a href="tracks.php">Tracks</a></li>
-    </ul>
-</nav>
-
-<!-- Banner graphics -->
-<div class="banner">
-    <!-- Team logo graphic positioned in the top-left corner of the banner -->
-    <img src="images/teams/<?php echo htmlspecialchars($row['team_logo']); ?>"
-         class="team-logo"
-         alt="Team logo">
-
-    <!-- Team name text positioned to the right of the logo -->
-    <div class="team-name">
-        <?php echo htmlspecialchars($row['name']); ?>
+    <div class="banner">
+        <div class="team-name">
+            <?php echo htmlspecialchars($row['name']); ?>
+        </div>
+        <div class="car-container">
+            <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
+                 class="car" alt="F1 Car">
+        </div>
     </div>
 
-    <!-- Car image positioned at the bottom of the banner-->
-    <div class="car-container">
-        <img src="images/cars/<?php echo htmlspecialchars($row['car_image']); ?>"
-             class="car"
-             alt="F1 Car">
-    </div>
-</div>
+    <div class="content-wrapper">
+        <div class="main-detail-box">
+            <div class="team-profile-layout">
+                <div class="info-column">
+                    <div class="info-card">
+                        <h2>Achievements</h2>
+                        <table>
+                            <tr><th>Wins</th><td><?php echo htmlspecialchars($row['wins']); ?></td></tr>
+                            <tr><th>Constructor Titles</th><td><?php echo htmlspecialchars($row['constructor_titles']); ?></td></tr>
+                        </table>
+                    </div>
 
-<!-- Main content -->
-<div class="content-wrapper">
-    <div class="team-profile-layout">
+                    <div class="info-card">
+                        <h2>Personnel</h2>
+                        <table>
+                            <tr><th>Team Principal</th><td><?php echo htmlspecialchars($row['team_principal']); ?></td></tr>
+                            <tr><th>Driver 1</th><td><?php echo htmlspecialchars($row['driver_1']); ?></td></tr>
+                            <tr><th>Driver 2</th><td><?php echo htmlspecialchars($row['driver_2']); ?></td></tr>
+                        </table>
+                    </div>
 
-        <!-- Right column: two stacked info cards -->
-        <div class="info-column">
-
-            <div class="info-card">
-                <h2>Achievements</h2>
-                <table>
-                    <tr><th>Wins</th><td><?php echo htmlspecialchars($row['wins']); ?></td></tr>
-                    <tr><th>Constructor Titles</th><td><?php echo htmlspecialchars($row['constructor_titles']); ?></td></tr>
-                </table>
-            </div>
-
-            <div class="info-card">
-                <h2>Personnel</h2> 
-                <table>
-                    <tr><th>Team Principal</th><td><?php echo htmlspecialchars($row['team_principal']); ?></td></tr>
-                    <tr><th>Driver 1</th><td><?php echo htmlspecialchars($row['driver_1']); ?></td></tr>
-                    <tr><th>Driver 2</th><td><?php echo htmlspecialchars($row['driver_2']); ?></td></tr>
-                </table>
-            </div>
-
-            <div class="info-card">
-                <h2>Team Information</h2>
-                <table>
-                    <tr><th>Name</th><td><?php echo htmlspecialchars($row['name']); ?></td></tr>
-                    <tr><th>Country</th><td><?php echo htmlspecialchars($row['country']); ?></td></tr>
-                    <tr><th>Headquarters</th><td><?php echo htmlspecialchars($row['headquarters']); ?></td></tr>
-                    <tr><th>Chassis</th><td><?php echo htmlspecialchars($row['chassis']); ?></td></tr>
-                    <tr><th>Power Unit</th><td><?php echo htmlspecialchars($row['power_unit']); ?></td></tr>
-                </table>
+                    <div class="info-card">
+                        <h2>Team Information</h2>
+                        <table>
+                            <tr><th>Name</th><td><?php echo htmlspecialchars($row['name']); ?></td></tr>
+                            <tr><th>Country</th><td><?php echo htmlspecialchars($row['country']); ?></td></tr>
+                            <tr><th>Headquarters</th><td><?php echo htmlspecialchars($row['headquarters']); ?></td></tr>
+                            <tr><th>Chassis</th><td><?php echo htmlspecialchars($row['chassis']); ?></td></tr>
+                            <tr><th>Power Unit</th><td><?php echo htmlspecialchars($row['power_unit']); ?></td></tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>
